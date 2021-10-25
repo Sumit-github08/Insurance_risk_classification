@@ -5,7 +5,7 @@ import xgboost
 import scipy
 import streamlit as st
 import numpy as np
-
+import base64
 
 # loaded_model= pickle.load(open('latest_final_model.pkl','rb'))
 loaded_model= xgboost.Booster()
@@ -13,7 +13,18 @@ loaded_model.load_model('latest_final_model.json')
 # config= pickle.load(open("/content/drive/MyDrive/PrudentialData/Booster_final_model_config.pkl",'rb'))
 # xgboost.Booster.feature_names=config
 # loaded_model.load_config(config)
-train = pd.read_csv('train.csv')
+train = pd.read_csv('./data/train.csv')
+test =pd.read_csv("./data/test - Copy.csv")
+
+def get_table_download_link_csv(df):
+    #csv = df.to_csv(index=False)
+    csv = df.to_csv(index=False).encode()
+    #b64 = base64.b64encode(csv.encode()).decode() 
+    b64 = base64.b64encode(csv).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="test.csv" target="_blank">Download csv file</a>'
+    return href
+
+
 
 def eval_wrapper(yhat, y):  
     y = np.array(y)
@@ -113,10 +124,15 @@ def main():
     <br>
     """
     st.markdown(html_temp,unsafe_allow_html=True)
-    st.write("Please enter the following details of provider to know if he/she is fraud.")
+    st.write("Fill in the details in below csv file to predict the risk.")
     st.write("")
     
-    
+    download=st.button('Download template')
+    if download:
+        'Download Started!'
+        st.markdown(get_table_download_link_csv(test), unsafe_allow_html=True)
+
+
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
         X = pd.read_csv(uploaded_file)
