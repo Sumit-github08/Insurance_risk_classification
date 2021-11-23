@@ -3,4 +3,4 @@ numpy==1.21.3
 xgboost==0.90
 sklearn==0.0
 pandas==1.3.4
-numpy==1.21.3
+pickle==0.7.5
