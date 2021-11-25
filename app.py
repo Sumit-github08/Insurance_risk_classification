@@ -161,7 +161,7 @@ def main():
     if st.button("Predict"):
         y_pred, importances =final_fun_1(X)
         st.write('On a scale of 1-8 customer insurance risk level is ',y_pred)
-        # st.write("The top 10 important Features are as follows:\n",dict(list(importances.items())[:10]))
+        st.write("The top 10 important Features are as follows:\n")
         fig, ax = matplotlib.pyplot.subplots()
         ax = matplotlib.pyplot.bar(list(importances.keys())[:15], list(importances.values())[:15])
         matplotlib.pyplot.xticks(rotation= 90)
