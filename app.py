@@ -14,8 +14,8 @@ loaded_model.load_model('latest_final_model.json')
 # config= pickle.load(open("/content/drive/MyDrive/PrudentialData/Booster_final_model_config.pkl",'rb'))
 # xgboost.Booster.feature_names=config
 # loaded_model.load_config(config)
-train = pd.read_csv('./data/train.csv')
-test =pd.read_csv("./data/test - Copy.csv")
+train = pd.read_csv('train.csv')
+test =pd.read_csv("test.csv")
 
 def get_table_download_link_csv(df):
     #csv = df.to_csv(index=False)
